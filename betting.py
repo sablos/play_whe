@@ -6,17 +6,8 @@ limit = 10
 score = 0
 
 
-def get_valid_number():
-    valid = False
-    while not valid:
-        guess = input(f"Guess the lucky number (between 1 and {limit}): ")
-        if guess.isnumeric() and int(guess) in range(1, limit + 1):
-            valid = True
-    return int(guess)
-
-
-def get_valid_input():
-    guess = input(f"Guess the lucky number (between 1 and {limit}): ")
+def get_valid_number(prompt):
+    guess = input(prompt)
     valid = False
     while not valid:
         if guess.isnumeric() and int(guess) in range(1, limit + 1):
@@ -34,7 +25,7 @@ while again == "y":
     print()
 
     # ask user for first guess
-    num_guess = get_valid_number()
+    num_guess = get_valid_number(f"Guess the lucky number (between 1 and {limit}): ")
 
     if win_number == num_guess:
         print("Awesome! You nailed it on the first try!")
@@ -46,7 +37,7 @@ while again == "y":
 
     # give the player a second chance if they didn't get the first guess
     if num_guess != win_number:
-        num_guess = get_valid_input()
+        num_guess = get_valid_number("Second chance: ")
 
         if num_guess == win_number:
             score += 3
@@ -58,7 +49,7 @@ while again == "y":
 
     # third and final chance
     if num_guess != win_number:
-        num_guess = get_valid_input()
+        num_guess = get_valid_number("Final guess: ")
 
         if num_guess == win_number:
             score += 1
